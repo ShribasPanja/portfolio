@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { Poetsen_One } from "next/font/google";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP, SplitText);
 
@@ -206,10 +207,13 @@ export default function Boxes() {
                 }}
                 className="absolute top-0 left-0 w-full h-full"
               >
-                <img
+                <Image
                   src={item.src}
                   alt={`img-${i}`}
                   className="w-full h-full object-cover brightness-50"
+                  fill
+                  sizes="100vw"
+                  priority={i === 0}
                 />
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center sm:justify-start sm:pl-12">
                   <div

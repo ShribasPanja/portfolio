@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Comfortaa, Poetsen_One } from "next/font/google";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +34,7 @@ const cardsData = [
     title: "SIH 2023 Finalist",
     description:
       "Selected as a national finalist in Smart India Hackathon 2023 for a project solving real-world problems with technology.",
-    image: "images/sih.png",
+    image: "/images/sih.png",
     yearRange: "2023",
   },
   {
@@ -42,7 +43,7 @@ const cardsData = [
     title: "Freelance Developer",
     description:
       "Delivered websites and web apps using React, Tailwind, GSAP for clients across industries. Handled full project lifecycle from design to deployment.",
-    image: "images/freelance.png",
+    image: "/images/freelance.png",
     yearRange: "2023 - 2024",
   },
   {
@@ -54,8 +55,7 @@ const cardsData = [
     image: "/images/hackathon.png",
     yearRange: "2022 – 2024",
   },
-];  
-  
+];
 
 export default function CardStack() {
   const containerRef = useRef(null);
@@ -66,7 +66,7 @@ export default function CardStack() {
       const cards = cardsRef.current;
       const totalCards = cards.length;
 
-      cards.forEach((card, i) => {
+      cards.forEach((card) => {
         gsap.set(card, {
           yPercent: 100,
           opacity: 0,
@@ -85,13 +85,11 @@ export default function CardStack() {
 
       cards.forEach((card, i) => {
         tl.to(card, { yPercent: 0, opacity: 1, ease: "power2.out" }, i * 0.9);
-
       });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
-  
 
   return (
     <div
@@ -111,11 +109,14 @@ export default function CardStack() {
           }}
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-center justify-center gap-6 sm:gap-20">
-            <div className="w-[40vw] h-[40vw] sm:w-[15vw] sm:h-[15vw] rounded-[2vw] overflow-hidden border-4 border-white shadow-md">
-              <img
+            <div className="w-[40vw] h-[40vw] sm:w-[15vw] sm:h-[15vw] rounded-[2vw] overflow-hidden border-4 border-white shadow-md relative">
+              <Image
                 src={card.image}
                 alt={card.title}
-                className="w-full h-full object-cover"
+                className="object-cover"
+                fill
+                sizes="(max-width: 640px) 40vw, 15vw"
+                priority={i === 0}
               />
             </div>
 

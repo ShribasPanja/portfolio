@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { use, useEffect, useRef } from "react";
+import { useRef } from "react";
 import Boxes from "@/components/scrollclip";
 import CardStack from "@/components/cardstack";
 import Footer from "@/components/footer";
@@ -155,7 +155,7 @@ export default function Home() {
               <h1
                 className={`text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold text-white text-center ${comfortaa.className}`}
               >
-                Hello I'm Shribas
+                Hello I&apos;m Shribas
               </h1>
             </div>
           </div>
@@ -178,7 +178,8 @@ export default function Home() {
               user experiences. I specialize in building full-stack
               applications, integrating blockchain technology, developing smart
               contracts and DevOps solutions. My passion lies in crafting
-              innovative solutions that push the boundaries of what's possible.
+              innovative solutions that push the boundaries of what&apos;s
+              possible.
             </p>
           </div>
         </section>
