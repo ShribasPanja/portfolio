@@ -1,103 +1,211 @@
-import Image from "next/image";
+"use client";
+import Video from "@/components/video";
+import { Comfortaa, Poetsen_One } from "next/font/google";
+import { ReactLenis } from "lenis/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { use, useEffect, useRef } from "react";
+import Boxes from "@/components/scrollclip";
+import CardStack from "@/components/cardstack";
+import Footer from "@/components/footer";
+gsap.registerPlugin(useGSAP);
 
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-comfortaa",
+});
+const poetsen = Poetsen_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-poetsen",
+});
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const hero = useRef<HTMLDivElement>(null);
+  const floatText = useRef<HTMLDivElement>(null);
+  const floatText2 = useRef<HTMLDivElement>(null);
+  const textSection = useRef<HTMLDivElement>(null);
+  const projectmenu = useRef<HTMLDivElement>(null);
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: hero.current,
+          start: "center center",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+      .to(hero.current, {
+        scale: 0.3,
+        duration: 0.5,
+      })
+      .to(hero.current, {
+        x: "0vw",
+        y: "0vh",
+        duration: 0.5,
+      });
+  }, [hero]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useGSAP(() => {
+    if (!textSection.current) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.create({
+      trigger: textSection.current,
+      start: "top top",
+      end: "+=200vh",
+      pin: false,
+      scrub: true,
+      anticipatePin: 1,
+    });
+  }, []);
+
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(SplitText);
+    SplitText.create(floatText.current, {
+      type: "chars",
+      onSplit(self) {
+        gsap.from(self.chars, {
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: floatText.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      },
+    });
+  }, [floatText]);
+
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(SplitText);
+
+    if (floatText2.current) {
+      floatText2.current.style.color = "#888";
+      const split = new SplitText(floatText2.current, { type: "words" });
+      gsap.fromTo(
+        split.words,
+        { color: "#888" },
+        {
+          color: "#273F4F",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: floatText2.current,
+            start: "top 60%",
+            end: "+=500vh",
+            scrub: 2,
+          },
+        }
+      );
+    }
+  }, [floatText2]);
+
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (projectmenu.current) {
+      gsap.set(projectmenu.current, {
+        transformOrigin: "left bottom",
+      });
+
+      gsap.fromTo(
+        projectmenu.current,
+        { scale: 0.5, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: projectmenu.current,
+            start: "top 90%",
+            end: "top 30%",
+            scrub: true,
+          },
+        }
+      );
+    }
+  }, [projectmenu]);
+
+  return (
+    <ReactLenis root>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white overflow-x-hidden">
+        <section
+          className="hero w-full h-screen border-[40px] border-white border-solid"
+          ref={hero}
+        >
+          <div className="relative w-full h-full overflow-hidden rounded-2xl">
+            <div className="absolute inset-0 z-0">
+              <Video />
+            </div>
+
+            <div className="z-10 absolute inset-0 p-4 flex justify-center items-center">
+              <h1
+                className={`text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold text-white text-center ${comfortaa.className}`}
+              >
+                Hello I'm Shribas
+              </h1>
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full " ref={textSection}>
+          <div className="h-screen w-full border-[40px] border-white border-solid px-4 md:px-20 py-10 mb-[30vh]">
+            <h1
+              className={`text-[14vw] md:text-[9vw] font-bold ${poetsen.className} text-black`}
+              ref={floatText}
+            >
+              Full Stack and Web3 Developer
+            </h1>
+
+            <p
+              className={`mt-6 text-[4.5vw] md:text-[2vw] ${poetsen.className} text-[#273F4F] `}
+              ref={floatText2}
+            >
+              I create stunning websites and applications that provide seamless
+              user experiences. I specialize in building full-stack
+              applications, integrating blockchain technology, developing smart
+              contracts and DevOps solutions. My passion lies in crafting
+              innovative solutions that push the boundaries of what's possible.
+            </p>
+          </div>
+        </section>
+
+        <section className="w-full bg-white">
+          <div
+            className="min-h-screen w-full bg-black flex items-center justify-center origin-bottom-left"
+            ref={projectmenu}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <h2
+              className={`text-white text-[8vw] font-bold ${comfortaa.className}`}
+            >
+              My projects
+            </h2>
+          </div>
+          <Boxes />
+        </section>
+        <section className="relative min-h-screen text-white w-full overflow-hidden">
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#000000] via-[#596575] to-[#FFFFFF]" />
+          <div className="relative z-20">
+            <CardStack />
+          </div>
+        </section>
+        <section className="w-full h-screen ">
+          <Footer />
+        </section>
+      </div>
+    </ReactLenis>
   );
 }
