@@ -17,28 +17,36 @@ const poetsen = Poetsen_One({
 
 const imagesList = [
   {
-    src: "/images/virtualspace.png",
-    title: "Multiplayer Virtual Space",
+    src: "/images/zipline.png",
+    title: "ZIPLINE CI/CD",
     description:
-      "A virtual space for multiple users to interact. It can be used for meetings, events, or just hanging out.",
-    live: "https://your-live-link-1.com",
-    repo: "https://github.com/ShribasPanja/VirtualSpace",
+      "Modern DevOps Platform with DAG Pipeline Orchestration like GitHub Actions.",
+    live: "https://zipline.shribas.me/",
+    repo: "https://github.com/ShribasPanja/zipline-be",
   },
   {
-    src: "/images/cryptowallet.png",
-    title: "Web Based Crypto Wallet",
+    src: "/images/recurio.png",
+    title: "LinkedIn CRM Lite",
     description:
-      "A secure wallet for managing your cryptocurrencies. Multiple features for easy transactions.",
-    live: "https://your-live-link-2.com",
-    repo: "https://github.com/ShribasPanja/Mine_crypto_wallet",
+      "Import LinkedIn profiles with one click using LinkedIn CRM Lite web extension, track leads through your sales pipeline, and sync everything to Google Sheets. Perfect for recruiters, sales teams, and networkers.",
+    live: "https://recurio.qopo.app/",
+    repo: "https://github.com/ShribasPanja/recurio",
   },
   {
-    src: "/images/weather.jpg",
-    title: "Weather App",
+    src: "/images/inputBot.png",
+    title: "Input Bot",
     description:
-      "A web app for checking the weather with a sleek design and user-friendly interface.",
-    live: "https://your-live-link-3.com",
-    repo: "https://github.com/ShribasPanja/happy-cloud",
+      "A rust and Tauri based desktop application that automates repetitive tasks by simulating keyboard and mouse inputs based on user-defined scripts. also records user actions for easy script creation.",
+    live: "https://github.com/ShribasPanja/inputBot",
+    repo: "https://github.com/ShribasPanja/inputBot",
+  },
+  {
+    src: "/images/swagsy.png",
+    title: "Swagsy",
+    description:
+      "Discover Free Swags & Rewards for Students Explore free swag opportunities from top tech companies",
+    live: "https://swagsy.qopo.app",
+    repo: "https://github.com/ShribasPanja/swagsy",
   },
 ];
 
@@ -79,7 +87,7 @@ export default function Boxes() {
       scrollTrigger: {
         trigger: container.current,
         start: "top top",
-        end: `+=${(images.length - 1) * 1000}`,
+        end: `+=${images.length * 1000}`,
         scrub: true,
         pin: true,
         anticipatePin: 1,
@@ -234,14 +242,14 @@ export default function Boxes() {
                     </p>
                     <br />
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 mt-2 items-center sm:items-start">
-                      {/* <a
+                      <a
                         href={item.live}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`text-white underline hover:text-blue-300 transition-all duration-300 text-[4vw] sm:text-[2vw] ${poetsen.className}`}
                       >
                         Go Live
-                      </a> */}
+                      </a>
                       <a
                         href={item.repo}
                         target="_blank"
